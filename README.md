@@ -16,7 +16,7 @@
 * No mainframe required
 * GnuCOBOL Docker
 
-```bash
+```
 $ cobc -x -debug gcblunit.cbl tests/intrinsic/* --job='equals-test notequals-test'
 GCBLUnit 0.22.1  by Olegs Kunicins and contributors.
 
@@ -42,7 +42,7 @@ The image includes GnuCOBOL and all required dependencies needed to debug or exe
 ### Installation
 Simply download [gcblunit.cbl](https://github.com/OlegKunitsyn/gcblunit/blob/master/gcblunit.cbl?raw=true). That's it.
 
-```bash
+```
 $ cobc -x gcblunit.cbl --job=-h
 GCBLUnit 0.22.1  by Olegs Kunicins and contributors.
 
@@ -59,7 +59,7 @@ Options:
 Tests are simple COBOL programs that allow futher execution (without `stop run`). There is no code-generation tricks nor injections.
 The assertions are GnuCOBOL programs and await two values - expected and actual, respectively:
 
-```bash
+```
 call "assert-equals" using "expected", "actual".                                
 ```
 
@@ -71,7 +71,7 @@ At the moment these assertions are supported:
 
  GCBLUnit catches exceptions and stops. For instance, the statement `compute y = y / 0.` is getting reported this way: 
  
-```bash
+```
 GCBLUnit 0.22.1  by Olegs Kunicins and contributors.
 
 There was an exception: EC-SIZE-OVERFLOW in exception-test; ; 33 on COMPUTE                        
