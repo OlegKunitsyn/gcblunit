@@ -9,6 +9,10 @@
 
 <h4 align="center">Simple Unit Testing for GnuCOBOL written in GnuCOBOL.</h4>
 
+<p align="center">
+  <img src="https://github.com/OlegKunitsyn/gcblunit/workflows/Docker%20Image%20CI/badge.svg?branch=master" />
+</p>
+
 ### Features
 * Assertions
 * Reporting
@@ -94,6 +98,7 @@ Nonetheless, you may try two alternatives as well:
  - `COBOLUnit` - a full-featured Unit Testing framework for COBOL, written by Hervé Vaujour, hosted on [Google Sites](https://sites.google.com/site/cobolunit/). Not updated since 2010.
 
 ### TODO
+ - Diff for numeric values
  - Stop upon the first exception `--stop-on-exception`
  - Stop upon the first failed test `--stop-on-failed`
  - Stop upon the first skipped test `--stop-on-skipped`
