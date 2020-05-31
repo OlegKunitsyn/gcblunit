@@ -56,14 +56,35 @@ Options:
 ```
 
 ### Writing Tests
-The examples you may find in the `tests` directory.
+Tests are simple COBOL programs that allow futher execution (without `stop run`). There is no code-generation tricks nor injections.
+The assertions are GnuCOBOL programs and await two values - expected and actual, respectively:
 
-At the moment two assertions are implemented:
+```bash
+call "assert-equals" using "expected", "actual".                                
+```
+
+This assertion, once included into the unit-testing, will lead to one failed test. More examples you may find in the `tests` directory.
+
+At the moment these assertions are supported:
  - assert-equals
  - assert-notequals
 
+ GCBLUnit catches exceptions and stops. For instance, the statement `compute y = y / 0.` is getting reported this way: 
+ 
+```bash
+GCBLUnit 0.22.1  by Olegs Kunicins and contributors.
+
+There was an exception: EC-SIZE-OVERFLOW in exception-test; ; 33 on COMPUTE                        
+
+Time: 00:00:00
+
+EXCEPTIONS!
+Tests: 0000000001, Skipped: 0000000000
+Assertions: 0000000000, Failures: 0000000000, Exceptions: 0000000001                       
+```
+
 ### Continuous Integration
-COBOLUnit returns an exit-code of the execusion that is usually enough for CI pipelines.
+COBOLUnit returns an exit-code of the execution that is usually enough for CI pipelines.
 
 ### Alternatives
 GCBLUnit primarily focuses on Unit Testing - isolated GnuCOBOL functions and programs with an input and output.
