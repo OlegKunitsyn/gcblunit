@@ -2,7 +2,7 @@
   <br>
     <img src="https://github.com/OlegKunitsyn/gcblunit/blob/master/icon.png?raw=true" alt="logo" width="200">
   <br>
-  GCBLUnit
+  GCBLUnit framework
   <br>
   <br>
 </h1>
@@ -15,7 +15,7 @@
 
 ### Features
 * Assertions
-* Reporting
+* Reporting in JUnit format
 * Continuous Integration
 * No mainframe required
 * GnuCOBOL Docker
@@ -54,9 +54,10 @@ Usage:
   cobc -x -debug gcblunit.cbl first-test.cbl [next-test.cbl] --job='first-test [next-test]'         
   cobc -x -debug gcblunit.cbl --job=Options                                     
 
-Options:                                                                        
-  -h|-help                 Print this help                                      
-  -v|--version             Print the version                                    
+Options:
+  -h|-help                 Print this help
+  -v|--version             Print the version
+  --junit report.xml       Report in JUnit XML format
 ```
 
 ### Writing Tests
@@ -89,6 +90,7 @@ Assertions: 0000000000, Failures: 0000000000, Exceptions: 0000000001
 
 ### Continuous Integration
 COBOLUnit returns an exit-code of the execution that is usually enough for CI pipelines.
+Additional details you may export to a file in JUnit XML format by using `--junit` option.
 
 ### Alternatives
 GCBLUnit primarily focuses on Unit Testing - isolated GnuCOBOL functions and programs with an input and output.
@@ -98,15 +100,11 @@ Nonetheless, you may try two alternatives as well:
  - `COBOLUnit` - a full-featured Unit Testing framework for COBOL, written by Hervé Vaujour, hosted on [Google Sites](https://sites.google.com/site/cobolunit/). Not updated since 2010.
 
 ### TODO
- - Diff for numeric values
  - Stop upon the first exception `--stop-on-exception`
  - Stop upon the first failed test `--stop-on-failed`
  - Stop upon the first skipped test `--stop-on-skipped`
- - Report in JUnit XML format
  - Assertion `assert-greater`
  - Assertion `assert-less`
- - Setup
- - Teardown
  - Auto-discovery of the tests in the compilation group
 
 Your contribution is always welcome!
