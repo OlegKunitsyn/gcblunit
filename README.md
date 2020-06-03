@@ -22,7 +22,7 @@
 
 ```
 $ cobc -x -debug gcblunit.cbl tests/intrinsic/* --job='equals-test notequals-test'
-GCBLUnit 0.22.1  by Olegs Kunicins and contributors.
+GCBLUnit 0.22.2  by Olegs Kunicins and contributors.
 
 ..............................................................
 
@@ -48,7 +48,7 @@ Simply download [gcblunit.cbl](https://github.com/OlegKunitsyn/gcblunit/blob/mas
 
 ```
 $ cobc -x gcblunit.cbl --job=-h
-GCBLUnit 0.22.1  by Olegs Kunicins and contributors.
+GCBLUnit 0.22.2  by Olegs Kunicins and contributors.
 
 Usage:                                                                          
   cobc -x -debug gcblunit.cbl first-test.cbl [next-test.cbl] --job='first-test [next-test]'         
@@ -77,7 +77,7 @@ At the moment these assertions are supported:
  GCBLUnit catches exceptions and stops. For instance, the statement `compute y = y / 0.` is getting reported this way: 
  
 ```
-GCBLUnit 0.22.1  by Olegs Kunicins and contributors.
+GCBLUnit 0.22.2  by Olegs Kunicins and contributors.
 
 There was an exception: EC-SIZE-OVERFLOW in exception-test; ; 33 on COMPUTE                        
 
