@@ -1,13 +1,19 @@
 {
     "name": "core/string",
-	"license": "GPL-2.0",
+	"license": "LGPL-3.0",
     "description": "GnuCOBOL core library with string functions",
-    "keywords": ["GnuCOBOL", "core", "string"],
-    "homepage": "https://github.com/OlegKunitsyn/core-string",
+    "keywords": ["core", "string"],
     "authors": [
         {
             "name": "Olegs Kunicins"
         }
+    ],
+    "copybooks": [
+        "src/hash",
+        "src/keccak",
+        "src/string"
+    ],
+    "copybooks-dev": [
     ],
     "require": {
         "cobc": ">=2.2.0"
@@ -17,7 +23,7 @@
     },
     "scripts": {
         "test": [
-            "cobc -x -debug lib/gcblunit/gcblunit.cbl test/* --job='string-test.cbl'"
+            "cobc -x -debug lib/gcblunit/gcblunit.cbl test/* --job='string-test hash-test'"
         ]
     }
 }
