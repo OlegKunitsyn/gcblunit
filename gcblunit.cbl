@@ -21,7 +21,7 @@
 *>  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 *>****
 
->>DEFINE constant VERSION as "0.22.2"
+>>DEFINE constant VERSION as "0.22.3"
 
 identification division.
 program-id. runner.
@@ -195,12 +195,12 @@ cblu-exec section.
         display LINEBREAK "There was an exception: " 
             trim(EXCEPTION-STATUS) " in " EXCEPTION-LOCATION " on " EXCEPTION-STATEMENT
     end-if.
+    call "CBL_ERROR_PROC" using 1, address of entry "exception-handler".
+    call "CBL_EXIT_PROC" using 1, address of entry "interruption-handler".
 
 cblu-finish section.
     accept current-time from TIME.
     subtract corresponding current-time from elapsed-time.
-    call "CBL_EXIT_PROC" using 1, address of entry "exception-handler".
-    call "CBL_EXIT_PROC" using 1, address of entry "interruption-handler".
     
     *> time
     display LINEBREAK LINEBREAK "Time: " 
@@ -299,10 +299,8 @@ cblu-junit section.
         *> failure
         if assertion-failed(assertions-index)
             move concatenate(
-               '        <failure type="', trim(assertion-name(assertions-index)), '">',
-               trim(assertion-expected(assertions-index)), ' not equals ',
-               trim(assertion-actual(assertions-index)),
-               '</failure>'
+               '        <failure type="', trim(assertion-name(assertions-index)),
+                '"><![CDATA[', assertions(assertions-index), ']]></failure>'
             ) to junit-line
             write junit-line
         end-if
@@ -409,24 +407,15 @@ procedure division using expected, actual.
     
     *> show status
     display assertion-status(assertions-counter) with no advancing.
-
-    *> log numeric diff
-    if test-numval(actual) not equals ZERO or test-numval(expected) not equals ZERO 
-        set address of diff-numeric to address of expected
-        move diff-numeric to assertion-expected(assertions-counter)
-        set address of diff-numeric to address of actual
-        move diff-numeric to assertion-actual(assertions-counter)
-        goback
-    end-if.
-
-    *> log textual diff
+    
+    *> show diff
     compute diff-length = byte-length(assertion-expected(assertions-counter)).
     compute diff-idx = idx - (0.5 * diff-length - 1).
     if diff-idx < 1
         move 1 to diff-idx
     end-if.
-    if diff-length > byte-length(expected)
-        move byte-length(expected) to diff-length
+    if diff-length + diff-idx > byte-length(expected)
+        compute diff-length = byte-length(expected) - diff-idx + 1
     end-if.
     move expected(diff-idx:diff-length) to assertion-expected(assertions-counter).
 
@@ -435,8 +424,8 @@ procedure division using expected, actual.
     if diff-idx < 1
         move 1 to diff-idx
     end-if.
-    if diff-length > byte-length(actual)
-        move byte-length(actual) to diff-length
+    if diff-length + diff-idx > byte-length(actual)
+        compute diff-length = byte-length(actual) - diff-idx + 1
     end-if.
     move actual(diff-idx:diff-length) to assertion-actual(assertions-counter).
 end program assert-equals.
@@ -509,23 +498,14 @@ procedure division using expected, actual.
     *> show status
     display assertion-status(assertions-counter) with no advancing.
 
-    *> log numeric diff
-    if test-numval(actual) not equals ZERO or test-numval(expected) not equals ZERO 
-        set address of diff-numeric to address of expected
-        move diff-numeric to assertion-expected(assertions-counter)
-        set address of diff-numeric to address of actual
-        move diff-numeric to assertion-actual(assertions-counter)
-        goback
-    end-if.
-
-    *> log textual diff
+    *> show diff
     compute diff-length = byte-length(assertion-expected(assertions-counter)).
     compute diff-idx = idx - (0.5 * diff-length - 1).
     if diff-idx < 1
         move 1 to diff-idx
     end-if.
-    if diff-length > byte-length(expected)
-        move byte-length(expected) to diff-length
+    if diff-length + diff-idx > byte-length(expected)
+        compute diff-length = byte-length(expected) - diff-idx + 1
     end-if.
     move expected(diff-idx:diff-length) to assertion-expected(assertions-counter).
 
@@ -534,8 +514,8 @@ procedure division using expected, actual.
     if diff-idx < 1
         move 1 to diff-idx
     end-if.
-    if diff-length > byte-length(actual)
-        move byte-length(actual) to diff-length
+    if diff-length + diff-idx > byte-length(actual)
+        compute diff-length = byte-length(actual) - diff-idx + 1
     end-if.
     move actual(diff-idx:diff-length) to assertion-actual(assertions-counter).
 end program assert-notequals.
