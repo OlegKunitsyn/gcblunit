@@ -38,9 +38,9 @@ working-storage section.
     01 haystack-idx usage index value 1.
     01 needle-idx usage index value 1.
 linkage section.
-    01  l-haystack pic x any length.
-    01  l-needle pic x any length.
-    01  l-result usage binary-long unsigned value 0.
+    01 l-haystack pic x any length.
+    01 l-needle pic x any length.
+    01 l-result usage binary-long unsigned value 0.
 procedure division using l-haystack, l-needle returning l-result.
     initialize haystack-idx, needle-idx, l-result all to value.
     if length(l-haystack) < length(l-needle)
@@ -80,9 +80,9 @@ repository.
 data division.
 working-storage section.
 linkage section.
-    01  l-haystack pic x any length.
-    01  l-needle pic x any length.
-    01  l-result usage binary-long unsigned value 0.
+    01 l-haystack pic x any length.
+    01 l-needle pic x any length.
+    01 l-result usage binary-long unsigned value 0.
 procedure division using l-haystack, l-needle returning l-result.
     move substr-pos(lower-case(l-haystack), lower-case(l-needle)) to l-result.
 end function substr-ipos.
@@ -103,8 +103,8 @@ working-storage section.
     01 ws-remainder binary-char unsigned.
     01 ws-quotient binary-char unsigned.
 linkage section.
-    01  l-byte usage binary-char unsigned.
-    01  l-hex pic x(2).
+    01 l-byte usage binary-char unsigned.
+    01 l-hex pic x(2).
 procedure division using l-byte returning l-hex.
     divide l-byte by 16 giving ws-quotient remainder ws-remainder.
     add 1 to ws-remainder.
@@ -127,19 +127,19 @@ repository.
     function ord upper-case intrinsic.
 data division.
 working-storage section.
-    01  ws-remainder usage binary-char unsigned.
-    01  ws-quotient usage binary-char unsigned.
+    01 ws-remainder usage binary-char unsigned.
+    01 ws-quotient usage binary-char unsigned.
 linkage section.
-    01  l-hex pic x(2).
-    01  l-byte usage binary-char unsigned.
+    01 l-hex pic x(2).
+    01 l-byte usage binary-char unsigned.
 procedure division using l-hex returning l-byte.
     compute ws-quotient = ord(upper-case(l-hex(1:1))) - 49.
     if ws-quotient > 16
-       subtract 7 from ws-quotient
+        subtract 7 from ws-quotient
     end-if.
     compute ws-remainder = ord(upper-case(l-hex(2:1))) - 49.
     if ws-remainder > 16
-       subtract 7 from ws-remainder
+        subtract 7 from ws-remainder
     end-if.
     compute l-byte = ws-quotient * 16 + ws-remainder.
 end function hex-to-byte.
@@ -161,9 +161,9 @@ working-storage section.
     01 haystack-idx usage index value 1.
     01 needle-idx usage index value 1.
 linkage section.
-    01  l-haystack pic x any length.
-    01  l-needle pic x any length.
-    01  l-result usage binary-long unsigned value 0.
+    01 l-haystack pic x any length.
+    01 l-needle pic x any length.
+    01 l-result usage binary-long unsigned value 0.
 procedure division using l-haystack, l-needle returning l-result.
     initialize haystack-idx, needle-idx, l-result all to value.
     if length(l-haystack) < length(l-needle)
@@ -199,9 +199,85 @@ repository.
 data division.
 working-storage section.
 linkage section.
-    01  l-haystack pic x any length.
-    01  l-needle pic x any length.
-    01  l-result usage binary-long unsigned value 0.
+    01 l-haystack pic x any length.
+    01 l-needle pic x any length.
+    01 l-result usage binary-long unsigned value 0.
 procedure division using l-haystack, l-needle returning l-result.
     move substr-count(lower-case(l-haystack), lower-case(l-needle)) to l-result.
 end function substr-icount.
+
+*>*
+*> Generate SHA3-256 message digest
+*> 
+*> @param l-buffer Input bytes
+*> @return 64 hexadecimal chars
+*>*
+identification division.
+function-id. sha3-256.
+environment division.
+configuration section.
+repository. 
+    function byte-to-hex 
+    function byte-length intrinsic.
+data division.
+working-storage section.
+    78 RATE value 1088.
+    78 CAPACITY value 512.
+    78 SUFFIX value x"06".
+    01 ws-idx usage index.
+    01 ws-hash pic x(32).
+linkage section.
+    01 l-buffer pic x any length.
+    01 l-hex.
+        05 hex pic x(2) occurs 32 times.
+procedure division using l-buffer returning l-hex.
+    call "KECCAK" using 
+        RATE
+        CAPACITY
+        l-buffer
+        byte-length(l-buffer)
+        SUFFIX
+        ws-hash 
+        byte-length(ws-hash).
+    perform varying ws-idx from 1 by 1 until ws-idx > byte-length(ws-hash)
+        move byte-to-hex(ws-hash(ws-idx:1)) to hex(ws-idx)
+    end-perform.
+end function sha3-256.
+
+*>*
+*> Generate SHA3-512 message digest
+*> 
+*> @param l-buffer Input bytes
+*> @return 128 hexadecimal chars
+*>*
+identification division.
+function-id. sha3-512.
+environment division.
+configuration section.
+repository. 
+    function byte-to-hex 
+    function byte-length intrinsic.
+data division.
+working-storage section.
+    78 RATE value 576.
+    78 CAPACITY value 1024.
+    78 SUFFIX value x"06".
+    01 ws-idx usage index.
+    01 ws-hash pic x(64).
+linkage section.
+    01 l-buffer pic x any length.
+    01 l-hex.
+        05 hex pic x(2) occurs 64 times.
+procedure division using l-buffer returning l-hex.
+    call "KECCAK" using 
+        RATE
+        CAPACITY
+        l-buffer
+        byte-length(l-buffer)
+        SUFFIX
+        ws-hash 
+        byte-length(ws-hash).
+    perform varying ws-idx from 1 by 1 until ws-idx > byte-length(ws-hash)
+        move byte-to-hex(ws-hash(ws-idx:1)) to hex(ws-idx)
+    end-perform.
+end function sha3-512.

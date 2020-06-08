@@ -1,19 +1,19 @@
 {
-    "name": "core/string",
+    "name": "core/network",
 	"license": "LGPL-3.0",
-    "description": "GnuCOBOL core library with string functions",
-    "keywords": ["core", "string"],
+    "description": "GnuCOBOL core library with network functions",
+    "keywords": ["core", "network"],
     "authors": [
         {
-            "name": "Laszlo Erdos"
+            "name": "Steve Williams"
         },
         {
             "name": "Olegs Kunicins"
         }
     ],
     "copybooks": [
-        "src/keccak",
-        "src/string"
+        "src/connecttoserver",
+        "src/network"
     ],
     "copybooks-dev": [
     ],
@@ -25,7 +25,7 @@
     },
     "scripts": {
         "test": [
-            "cobc -x -debug lib/gcblunit/gcblunit.cbl tests/* --job='string-test'"
+            "cobc -x -debug lib/gcblunit/gcblunit.cbl tests/* --job='network-test'"
         ]
     }
 }
