@@ -281,3 +281,50 @@ procedure division using l-buffer returning l-hex.
         move byte-to-hex(ws-hash(ws-idx:1)) to hex(ws-idx)
     end-perform.
 end function sha3-512.
+
+*>*
+*> Convert urlencoded symbol into one byte.
+*> 
+*> @param l-symbol Urlencoded symbol (3 bytes)
+*> @return Byte
+*>*
+identification division.
+function-id. urlencoded-to-byte.
+environment division.
+configuration section.
+repository. function hex-to-byte.
+data division.
+working-storage section.
+linkage section.
+    01 l-urlencoded.
+        05 filler pic x(1).
+        88 is-urlencoded value "%".
+        05 hex pic x(2).
+    01 l-byte usage binary-char unsigned.
+procedure division using l-urlencoded returning l-byte.
+    initialize l-byte all to value.
+    if is-urlencoded
+        move hex-to-byte(hex) to l-byte
+    end-if.
+end function urlencoded-to-byte.
+
+*>*
+*> Convert one byte into urlencoded symbol.
+*> 
+*> @param l-byte Byte
+*> @return Urlencoded symbol (3 bytes)
+*>*
+identification division.
+function-id. byte-to-urlencoded.
+environment division.
+configuration section.
+repository. function byte-to-hex.
+data division.
+working-storage section.
+linkage section.
+    01 l-byte usage binary-char unsigned.
+    01 l-urlencoded pic x(3).
+procedure division using l-byte returning l-urlencoded.
+    move "%" to l-urlencoded(1:1).
+    move byte-to-hex(l-byte) to l-urlencoded(2:2).
+end function byte-to-urlencoded.

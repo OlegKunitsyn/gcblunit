@@ -7,6 +7,8 @@ program-id. string-test.
 environment division.
 configuration section.
 repository.
+    function urlencoded-to-byte
+    function byte-to-urlencoded
     function sha3-256
     function sha3-512
     function substr-pos
@@ -18,6 +20,8 @@ repository.
 data division.
 working-storage section.
 procedure division.
+    perform byte-to-urlencoded-test.
+    perform urlencoded-to-byte-test.
     perform sha3-256-test.
     perform sha3-512-test.
     perform substr-count-test.
@@ -26,6 +30,16 @@ procedure division.
     perform byte-to-hex-test.
     perform hex-to-byte-test.
     goback.
+
+urlencoded-to-byte-test section.
+    call "assert-equals" using x"20", urlencoded-to-byte("%20").
+    call "assert-equals" using x"FF", urlencoded-to-byte("%FF").
+    call "assert-equals" using x"00", urlencoded-to-byte(SPACES).
+
+byte-to-urlencoded-test section.
+    call "assert-equals" using "%20", byte-to-urlencoded(x"20").
+    call "assert-equals" using "%FF", byte-to-urlencoded(x"FF").
+    call "assert-equals" using "%00", byte-to-urlencoded(x"00").
 
 sha3-256-test section.
     call "assert-equals" using 
