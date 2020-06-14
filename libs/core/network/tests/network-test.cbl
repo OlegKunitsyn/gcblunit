@@ -44,7 +44,7 @@ data division.
 working-storage section.
     01 ws-syslog pic x(1024).
 procedure division.
-    *>perform send-udp-test.
+    perform send-udp-test.
     perform syslog-test.
     goback.
 
