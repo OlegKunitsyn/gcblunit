@@ -75,41 +75,11 @@ identification division.
 function-id. syslog.
 environment division.
 configuration section.
-repository. function trim numval current-date concatenate intrinsic.
+repository. 
+    function datetime-format
+    function trim numval concatenate intrinsic.
 data division.
 working-storage section.
-    01 MONTHS.
-        05 filler pic x(3) value "Jan".
-        05 filler pic x(3) value "Feb".
-        05 filler pic x(3) value "Mar".
-        05 filler pic x(3) value "Apr".
-        05 filler pic x(3) value "May".
-        05 filler pic x(3) value "Jun".
-        05 filler pic x(3) value "Jul".
-        05 filler pic x(3) value "Aug".
-        05 filler pic x(3) value "Sep".
-        05 filler pic x(3) value "Oct".
-        05 filler pic x(3) value "Nov".
-        05 filler pic x(3) value "Dec".
-    01 filler redefines MONTHS.
-        05 month pic x(3) occurs 12 times indexed by month-idx.
-    01 ws-current-timestamp.
-        05 cd-year pic 9(4).
-        05 cd-month pic 9(2).
-        05 cd-day pic 9(2).
-        05 cd-hour pic 9(2).
-        05 cd-minutes pic 9(2).
-        05 cd-seconds pic 9(2).
-    01 ws-syslog-timestamp. *> MMM dd HH:mm:ss
-        05 syslog-month pic x(3).
-        05 filler pic x value SPACE.
-        05 cd-day pic 9(2).
-        05 filler pic x value SPACE.
-        05 cd-hour pic 9(2).
-        05 filler pic x value ":".
-        05 cd-minutes pic 9(2).
-        05 filler pic x value ":".
-        05 cd-seconds pic 9(2).
     01 ws-code usage binary-char unsigned.
     01 ws-syslog-code pic z(3) value SPACE.
 linkage section.
@@ -123,15 +93,11 @@ procedure division using l-logsource, l-program, l-facility, l-severity, l-messa
     move numval(l-severity) to ws-code.
     call "CBL_OR" using numval(l-facility), ws-code by value 1.
     move ws-code to ws-syslog-code.
-    move current-date to ws-current-timestamp.
-    move corresponding ws-current-timestamp to ws-syslog-timestamp.
-    set month-idx to cd-month.
-    move month(month-idx) to syslog-month. 
     move concatenate(
         "<"
         trim(ws-syslog-code)
         ">"
-        ws-syslog-timestamp
+        trim(datetime-format("MMM DD hh:mm:ss", ZERO))
         SPACE
         trim(l-logsource)
         SPACE

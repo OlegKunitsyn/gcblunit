@@ -71,7 +71,7 @@ end function substr-pos.
 *> of l-haystack. Returns 0 if not found.
 *>*
 identification division.
-function-id. substr-ipos.
+function-id. substr-pos-case.
 environment division.
 configuration section.
 repository. 
@@ -85,7 +85,7 @@ linkage section.
     01 l-result usage binary-long unsigned value 0.
 procedure division using l-haystack, l-needle returning l-result.
     move substr-pos(lower-case(l-haystack), lower-case(l-needle)) to l-result.
-end function substr-ipos.
+end function substr-pos-case.
 
 *>*
 *> Convert one byte into hexadecimal representation.
@@ -190,7 +190,7 @@ end function substr-count.
 *> @return Number of occurrences
 *>*
 identification division.
-function-id. substr-icount.
+function-id. substr-count-case.
 environment division.
 configuration section.
 repository. 
@@ -204,7 +204,7 @@ linkage section.
     01 l-result usage binary-long unsigned value 0.
 procedure division using l-haystack, l-needle returning l-result.
     move substr-count(lower-case(l-haystack), lower-case(l-needle)) to l-result.
-end function substr-icount.
+end function substr-count-case.
 
 *>*
 *> Generate SHA3-256 message digest

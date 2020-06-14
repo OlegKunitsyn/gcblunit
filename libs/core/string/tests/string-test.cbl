@@ -12,11 +12,11 @@ repository.
     function sha3-256
     function sha3-512
     function substr-pos
-    function substr-ipos
+    function substr-pos-case
     function byte-to-hex
     function hex-to-byte
     function substr-count
-    function substr-icount.
+    function substr-count-case.
 data division.
 working-storage section.
 procedure division.
@@ -26,7 +26,7 @@ procedure division.
     perform sha3-512-test.
     perform substr-count-test.
     perform substr-pos-test.
-    perform substr-ipos-test.
+    perform substr-pos-case-test.
     perform byte-to-hex-test.
     perform hex-to-byte-test.
     goback.
@@ -70,12 +70,12 @@ substr-pos-test section.
     call "assert-equals" using 12, substr-pos("Lorem ipsum dolor", " dolor").
     call "assert-equals" using 0, substr-pos("Lorem ipsum", "Lorem ipsum ").
 
-substr-ipos-test section.
-    call "assert-equals" using 1, substr-ipos(SPACE, SPACE).
-    call "assert-equals" using 1, substr-ipos("Lorem ipsum dolor", "Lorem").
-    call "assert-equals" using 1, substr-ipos("Lorem ipsum dolor", "lorem").
-    call "assert-equals" using 12, substr-ipos("Lorem ipsum dolor", " Dolor").
-    call "assert-equals" using 1, substr-ipos("Lorem ipsum", "lorem ipsum").
+substr-pos-case-test section.
+    call "assert-equals" using 1, substr-pos-case(SPACE, SPACE).
+    call "assert-equals" using 1, substr-pos-case("Lorem ipsum dolor", "Lorem").
+    call "assert-equals" using 1, substr-pos-case("Lorem ipsum dolor", "lorem").
+    call "assert-equals" using 12, substr-pos-case("Lorem ipsum dolor", " Dolor").
+    call "assert-equals" using 1, substr-pos-case("Lorem ipsum", "lorem ipsum").
 
 substr-count-test section.
     call "assert-equals" using 1, substr-count(SPACE, SPACE).
@@ -84,10 +84,10 @@ substr-count-test section.
     call "assert-equals" using 1, substr-count("Lorem ipsum dolor", " dolor").
     call "assert-equals" using 2, substr-count("Lorem ipsum", "m").
 
-substr-icount-test section.
-    call "assert-equals" using 1, substr-icount(SPACE, SPACE).
-    call "assert-equals" using 1, substr-icount("Lorem ipsum dolor", "Lorem").
-    call "assert-equals" using 1, substr-icount("Lorem ipsum dolor", "lorem").
-    call "assert-equals" using 1, substr-icount("Lorem ipsum dolor", " dolor").
-    call "assert-equals" using 2, substr-icount("Lorem ipsum", "M").
+substr-count-case-test section.
+    call "assert-equals" using 1, substr-count-case(SPACE, SPACE).
+    call "assert-equals" using 1, substr-count-case("Lorem ipsum dolor", "Lorem").
+    call "assert-equals" using 1, substr-count-case("Lorem ipsum dolor", "lorem").
+    call "assert-equals" using 1, substr-count-case("Lorem ipsum dolor", " dolor").
+    call "assert-equals" using 2, substr-count-case("Lorem ipsum", "M").
 end program string-test.
