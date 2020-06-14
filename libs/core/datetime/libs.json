@@ -11,8 +11,6 @@
     "copybooks": [
         "src/datetime"
     ],
-    "copybooks-dev": [
-    ],
     "require": {
         "cobc": ">=2.2.0"
     },

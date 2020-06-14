@@ -15,8 +15,6 @@
         "src/keccak",
         "src/string"
     ],
-    "copybooks-dev": [
-    ],
     "require": {
         "cobc": ">=2.2.0"
     },

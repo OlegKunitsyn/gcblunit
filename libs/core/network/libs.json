@@ -15,10 +15,9 @@
         "src/connecttoserver",
         "src/network"
     ],
-    "copybooks-dev": [
-    ],
     "require": {
-        "cobc": ">=2.2.0"
+        "cobc": ">=2.2.0",
+        "core/datetime": "*"
     },
     "require-dev": {
         "gcblunit/gcblunit": "*"
