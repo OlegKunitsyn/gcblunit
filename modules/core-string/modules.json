@@ -1,0 +1,19 @@
+{
+    "name": "core-string",
+    "description": "GnuCOBOL core library with string functions",
+    "modules": [
+        "src/keccak.cbl",
+        "src/string.cbl"
+    ],
+    "dialect": "gnucobol",
+    "authors": [
+        "Laszlo Erdos",
+        "Olegs Kunicins"
+    ],
+    "licenses": [
+        "LGPL-3.0"
+    ],
+    "dependencies-debug": {
+        "gcblunit": "*"
+    }
+}
