@@ -10,7 +10,7 @@ configuration section.
 repository. function all intrinsic.
 data division.
 working-storage section.
-    copy "dd-fixtures" of "tests/copybooks".
+    copy "dd-fixtures" of "copybooks".
 procedure division.
     perform numeric-data-test.
     perform floating-data-test.

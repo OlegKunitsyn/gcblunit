@@ -21,7 +21,7 @@
 *>  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 *>****
 
->>DEFINE constant VERSION as "0.22.3"
+>>DEFINE constant VERSION as "1.22.4"
 
 identification division.
 program-id. runner.

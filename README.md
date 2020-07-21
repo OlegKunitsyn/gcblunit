@@ -20,19 +20,6 @@
 * No mainframe required
 * GnuCOBOL Docker
 
-```
-$ cobc -x -debug gcblunit.cbl tests/intrinsic/* --job='equals-test notequals-test'
-GCBLUnit 0.22.2  by Olegs Kunicins and contributors.
-
-..............................................................
-
-Time: 00:00:00
-
-OK
-Tests: 0000000002, Skipped: 0000000000
-Assertions: 0000000062, Failures: 0000000000, Exceptions: 0000000000                                  
-```
-
 ### Requirements
 You may choose between *local* and *container* execution environment.
 
@@ -44,20 +31,29 @@ GnuCOBOL `cobc` 2.2+ installed.
 The image includes GnuCOBOL and all required dependencies needed to debug or execute your code.
 
 ### Installation
-Simply download [gcblunit.cbl](https://github.com/OlegKunitsyn/gcblunit/blob/master/gcblunit.cbl?raw=true). That's it.
-
+Simply download [gcblunit.cbl](https://github.com/OlegKunitsyn/gcblunit/blob/master/gcblunit.cbl?raw=true) file or install by 
+[COBOL Package Manager](https://github.com/OlegKunitsyn/cobolget):
 ```
-$ cobc -x gcblunit.cbl --job=-h
-GCBLUnit 0.22.2  by Olegs Kunicins and contributors.
+$ npm install -g cobolget
+$ cobolget init
+$ cobolget add --debug gcblunit
+$ cobolget update
+$ cobolget install
+$ cobc -x modules/gcblunit/gcblunit.cbl --job=-h
+```
 
-Usage:                                                                          
-  cobc -x -debug gcblunit.cbl first-test.cbl [next-test.cbl] --job='first-test [next-test]'         
-  cobc -x -debug gcblunit.cbl --job=Options                                     
+### Usage
+```
+$ cobc -x -debug gcblunit.cbl tests/* --job='equals-test notequals-test'
+GCBLUnit 1.22.4  by Olegs Kunicins and contributors.
 
-Options:
-  -h|-help                 Print this help
-  -v|--version             Print the version
-  --junit report.xml       Report in JUnit XML format
+..............................................................
+
+Time: 00:00:00
+
+OK
+Tests: 0000000002, Skipped: 0000000000
+Assertions: 0000000062, Failures: 0000000000, Exceptions: 0000000000                                  
 ```
 
 ### Writing Tests
@@ -77,7 +73,7 @@ At the moment these assertions are supported:
  GCBLUnit catches exceptions and stops. For instance, the statement `compute y = y / 0.` is getting reported this way: 
  
 ```
-GCBLUnit 0.22.2  by Olegs Kunicins and contributors.
+GCBLUnit 1.22.4  by Olegs Kunicins and contributors.
 
 There was an exception: EC-SIZE-OVERFLOW in exception-test; ; 33 on COMPUTE                        
 
@@ -106,5 +102,6 @@ Nonetheless, you may try two alternatives as well:
  - Assertion `assert-greater`
  - Assertion `assert-less`
  - Auto-discovery of the tests in the compilation group
+ - Integration with [Debugger for GnuCOBOL](https://github.com/OlegKunitsyn/gnucobol-debug) 
 
 Your contribution is always welcome!

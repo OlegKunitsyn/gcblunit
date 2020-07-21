@@ -1,0 +1,16 @@
+{
+  "name": "gcblunit",
+  "description": "Simple Unit Testing for GnuCOBOL",
+  "modules": [],
+  "dialect": "gnucobol",
+  "licenses": [
+    "GPL-2.0"
+  ],
+  "authors": [
+    "Olegs Kunicins"
+  ],
+  "dependencies": {},
+  "dependencies-debug": {
+    "core-string": "*"
+  }
+}
