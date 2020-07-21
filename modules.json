@@ -10,7 +10,5 @@
     "Olegs Kunicins"
   ],
   "dependencies": {},
-  "dependencies-debug": {
-    "core-string": "*"
-  }
+  "dependencies-debug": {}
 }
