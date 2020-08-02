@@ -31,7 +31,7 @@ GnuCOBOL `cobc` 2.2+ installed.
 The image includes GnuCOBOL and all required dependencies needed to debug or execute your code.
 
 ### Installation
-Simply download [gcblunit.cbl](https://github.com/OlegKunitsyn/gcblunit/blob/master/gcblunit.cbl?raw=true) file or install by 
+Simply download [gcblunit.cbl](https://raw.githubusercontent.com/OlegKunitsyn/gcblunit/master/gcblunit.cbl) file or install by 
 [COBOL Package Manager](https://github.com/OlegKunitsyn/cobolget):
 ```
 $ npm install -g cobolget
@@ -39,13 +39,23 @@ $ cobolget init
 $ cobolget add --debug gcblunit
 $ cobolget update
 $ cobolget install
-$ cobc -x modules/gcblunit/gcblunit.cbl --job=-h
+$ cobc -x -debug modules/gcblunit/gcblunit.cbl --job=-h
+GCBLUnit 1.22.5  by Olegs Kunicins and contributors.
+
+Usage:      
+  cobc -x -debug gcblunit.cbl first-test.cbl [next-test.cbl] --job='first-test [next-test]'         
+  cobc -x -debug gcblunit.cbl --job=Options                                     
+
+Options:                                                                        
+  -h, -help                Print this help                                      
+  -v, --version            Print the version                                    
+  --junit report.xml       Report in JUnit XML format 
 ```
 
 ### Usage
 ```
 $ cobc -x -debug gcblunit.cbl tests/* --job='equals-test notequals-test'
-GCBLUnit 1.22.4  by Olegs Kunicins and contributors.
+GCBLUnit 1.22.5  by Olegs Kunicins and contributors.
 
 ..............................................................
 
@@ -73,7 +83,7 @@ At the moment these assertions are supported:
  GCBLUnit catches exceptions and stops. For instance, the statement `compute y = y / 0.` is getting reported this way: 
  
 ```
-GCBLUnit 1.22.4  by Olegs Kunicins and contributors.
+GCBLUnit 1.22.5  by Olegs Kunicins and contributors.
 
 There was an exception: EC-SIZE-OVERFLOW in exception-test; ; 33 on COMPUTE                        
 
@@ -101,6 +111,8 @@ Nonetheless, you may try two alternatives as well:
  - Stop upon the first skipped test `--stop-on-skipped`
  - Assertion `assert-greater`
  - Assertion `assert-less`
+ - Assertion `assert-contains`
+ - Assertion `assert-notcontains`
  - Auto-discovery of the tests in the compilation group
  - Integration with [Debugger for GnuCOBOL](https://github.com/OlegKunitsyn/gnucobol-debug) 
 

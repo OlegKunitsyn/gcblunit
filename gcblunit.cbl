@@ -21,7 +21,7 @@
 *>  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 *>****
 
->>DEFINE constant VERSION as "1.22.4"
+>>DEFINE constant VERSION as "1.22.5"
 
 identification division.
 program-id. runner.
@@ -65,10 +65,10 @@ working-storage section.
         "Options:".
         05 filler pic x value LINEBREAK.
         05 filler pic x(80) value 
-        "  -h|-help                 Print this help".
+        "  -h, -help                Print this help".
         05 filler pic x value LINEBREAK.
         05 filler pic x(80) value 
-        "  -v|--version             Print the version".
+        "  -v, --version            Print the version".
         05 filler pic x value LINEBREAK.
         05 filler pic x(80) value 
         "  --junit report.xml       Report in JUnit XML format".
