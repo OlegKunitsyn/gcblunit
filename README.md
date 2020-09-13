@@ -40,22 +40,24 @@ $ cobolget add --debug gcblunit
 $ cobolget update
 $ cobolget install
 $ cobc -x -debug modules/gcblunit/gcblunit.cbl --job=-h
-GCBLUnit 1.22.5  by Olegs Kunicins and contributors.
+GCBLUnit 1.22.6  by Olegs Kunicins and contributors.
 
 Usage:      
   cobc -x -debug gcblunit.cbl first-test.cbl [next-test.cbl] --job='first-test [next-test]'         
   cobc -x -debug gcblunit.cbl --job=Options                                     
 
 Options:                                                                        
-  -h, -help                Print this help                                      
-  -v, --version            Print the version                                    
-  --junit report.xml       Report in JUnit XML format 
+  -h, -help                Print this help
+  -v, --version            Print the version
+  --stop-on-error          Stop on the first exception
+  --stop-on-failure        Stop on the first failure
+  --junit report.xml       Report in JUnit XML format
 ```
 
 ### Usage
 ```
 $ cobc -x -debug gcblunit.cbl tests/* --job='equals-test notequals-test'
-GCBLUnit 1.22.5  by Olegs Kunicins and contributors.
+GCBLUnit 1.22.6  by Olegs Kunicins and contributors.
 
 ..............................................................
 
@@ -83,7 +85,7 @@ At the moment these assertions are supported:
  GCBLUnit catches exceptions and stops. For instance, the statement `compute y = y / 0.` is getting reported this way: 
  
 ```
-GCBLUnit 1.22.5  by Olegs Kunicins and contributors.
+GCBLUnit 1.22.6  by Olegs Kunicins and contributors.
 
 There was an exception: EC-SIZE-OVERFLOW in exception-test; ; 33 on COMPUTE                        
 
@@ -106,9 +108,6 @@ Nonetheless, you may try two alternatives as well:
  - `COBOLUnit` - a full-featured Unit Testing framework for COBOL, written by Hervé Vaujour, hosted on [Google Sites](https://sites.google.com/site/cobolunit/). Not updated since 2010.
 
 ### TODO
- - Stop upon the first exception `--stop-on-exception`
- - Stop upon the first failed test `--stop-on-failed`
- - Stop upon the first skipped test `--stop-on-skipped`
  - Assertion `assert-greater`
  - Assertion `assert-less`
  - Assertion `assert-contains`

@@ -21,7 +21,7 @@
 *>  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 *>****
 
->>DEFINE constant VERSION as "1.22.5"
+>>DEFINE constant VERSION as "1.22.6"
 
 identification division.
 program-id. runner.
@@ -71,6 +71,12 @@ working-storage section.
         "  -v, --version            Print the version".
         05 filler pic x value LINEBREAK.
         05 filler pic x(80) value 
+        "  --stop-on-error          Stop on the first error".
+        05 filler pic x value LINEBREAK.
+        05 filler pic x(80) value 
+        "  --stop-on-failure        Stop on the first failure".
+        05 filler pic x value LINEBREAK.
+        05 filler pic x(80) value 
         "  --junit report.xml       Report in JUnit XML format".
         05 filler pic x value LINEBREAK.
     
@@ -97,6 +103,8 @@ working-storage section.
         88 option-help value "-h", "--help".
         88 option-version value "-v", "--version".
         88 option-junit value "--junit".
+        88 option-stop-on-error value "--stop-on-error".
+        88 option-stop-on-failure value "--stop-on-failure".
     
     01 junit-file pic x(256).
         88 is-empty value SPACE.
@@ -117,6 +125,9 @@ working-storage section.
         05 junit-time pic x(9).
         05 filler pic x(2) value '">'.
     01 junit-elapsed-time usage binary-long unsigned.
+
+    01 ws-stop-on-error usage binary-short value 0.
+    01 ws-stop-on-failure usage binary-short value 0.
 
     *> local
     01 assertions-index usage binary-long unsigned.
@@ -154,9 +165,19 @@ procedure division.
             move SPACE to argv
             accept argv from ARGUMENT-VALUE
             move argv to junit-file
+        when option-stop-on-error
+            move 1 to ws-stop-on-error
+        when option-stop-on-failure
+            move 1 to ws-stop-on-failure
         when other
             move argv to testsuite-name
             perform cblu-exec
+            if ws-stop-on-failure = 1 and failures-total > 0
+               exit perform
+            end-if
+            if ws-stop-on-error = 1 and errors-total > 0
+               exit perform
+            end-if
         end-evaluate
             move SPACE to argv
             accept argv from ARGUMENT-VALUE
