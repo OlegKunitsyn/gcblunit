@@ -10,7 +10,7 @@
 <h4 align="center">Simple Unit Testing for GnuCOBOL written in GnuCOBOL.</h4>
 
 <p align="center">
-  <img src="https://github.com/OlegKunitsyn/gcblunit/workflows/Docker%20Image%20CI/badge.svg?branch=master" />
+  <img src="https://github.com/OlegKunitsyn/gcblunit/workflows/ci/badge.svg?branch=master" />
 </p>
 
 ### Features
@@ -97,7 +97,7 @@ Assertions: 0000000000, Failures: 0000000000, Exceptions: 0000000001
 ```
 
 ### Continuous Integration
-COBOLUnit returns an exit-code of the execution that is usually enough for CI pipelines.
+GCBLUnit returns an exit-code of the execution that is usually enough for CI pipelines.
 Additional details you may export to a file in JUnit XML format by using `--junit` option.
 
 ### Alternatives

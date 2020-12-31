@@ -1,0 +1,5 @@
+FROM olegkunitsyn/gnucobol:2.2
+RUN mkdir /var/test
+WORKDIR /var/test
+COPY . .
+RUN cobc -x -debug gcblunit.cbl tests/* --job='equals-test notequals-test'

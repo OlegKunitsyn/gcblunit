@@ -24,7 +24,7 @@
 >>DEFINE constant VERSION as "1.22.6"
 
 identification division.
-program-id. runner.
+program-id. gcblunit.
 environment division.
 configuration section.
 repository. function all intrinsic.
@@ -359,7 +359,7 @@ procedure division.
     display SPACE.
     display "Tests were interruped in " MODULE-SOURCE.
 end program interruption-handler.
-end program runner.
+end program gcblunit.
 
 
 

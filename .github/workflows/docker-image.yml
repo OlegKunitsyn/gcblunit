@@ -1,18 +1,17 @@
-name: Docker Image CI
-
+name: ci
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: GnuCOBOL 2.2
+      uses: actions/checkout@v2
+      run: docker build . --file Dockerfile-2.2 --tag gcblunit:2.2
+
+    - name: GnuCOBOL 3.1
+      uses: actions/checkout@v2
+      run: docker build . --file Dockerfile-3.1 --tag gcblunit:3.1
