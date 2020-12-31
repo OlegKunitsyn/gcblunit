@@ -2,7 +2,7 @@
   <br>
     <img src="https://github.com/OlegKunitsyn/gcblunit/blob/master/icon.png?raw=true" alt="logo" width="200">
   <br>
-  GCBLUnit framework
+  GCBLUnit tool
   <br>
   <br>
 </h1>
