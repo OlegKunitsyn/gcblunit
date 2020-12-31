@@ -8,10 +8,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - name: GnuCOBOL 2.2
-      uses: actions/checkout@v2
       run: docker build . --file Dockerfile-2.2 --tag gcblunit:2.2
 
     - name: GnuCOBOL 3.1
-      uses: actions/checkout@v2
       run: docker build . --file Dockerfile-3.1 --tag gcblunit:3.1
