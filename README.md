@@ -32,7 +32,7 @@ The image includes GnuCOBOL and all required dependencies needed to debug or exe
 
 ### Installation
 Simply download [gcblunit.cbl](https://raw.githubusercontent.com/OlegKunitsyn/gcblunit/master/gcblunit.cbl) file or install by 
-[COBOL Package Manager](https://github.com/OlegKunitsyn/cobolget):
+[COBOL Package Manager](https://cobolget.com):
 ```
 $ npm install -g cobolget
 $ cobolget init
@@ -69,7 +69,7 @@ Assertions: 0000000062, Failures: 0000000000, Exceptions: 0000000000
 ```
 
 ### Writing Tests
-Tests are simple COBOL programs that allow futher execution (without `stop run`). There is no code-generation tricks nor injections.
+Tests are simple COBOL programs that allow further execution (without `stop run`). There is no code-generation tricks nor injections.
 The assertions are GnuCOBOL programs and await two values - expected and actual, respectively:
 
 ```
